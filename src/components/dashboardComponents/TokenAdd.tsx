@@ -1,15 +1,14 @@
 import { Autocomplete, AutocompleteChangeReason, AutocompleteInputChangeReason, Box, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
 
 type Props = {
   coinList: Token[];
+  addToken: Function;
 };
 
 export default function TokenAdd(props: Props) {
   const [searchText, setSearchText] = useState("");
-
   const selectedToken = useRef<Token | null>(null);
 
   function handleInputChange(_event: React.SyntheticEvent<Element, Event>, value: string, _reason: AutocompleteInputChangeReason) {
@@ -36,7 +35,7 @@ export default function TokenAdd(props: Props) {
   }
 
   return (
-    <Card sx={{ display: "flex", justifyContent: "center", alignContet: "center", padding: "20px" }} variant="outlined">
+    <>
       <Autocomplete
         onInputChange={handleInputChange}
         onChange={handleChange}
@@ -57,9 +56,14 @@ export default function TokenAdd(props: Props) {
           return <TextField {...params} label="Tokens" />;
         }}
       />
-      <Button sx={{ justifySelf: "flex-end", marginLeft: "20px" }} variant="contained">
+      <Button
+        sx={{ justifySelf: "flex-end", marginLeft: "20px" }}
+        onClick={() => props.addToken(selectedToken.current || null)}
+        disabled={selectedToken.current ? false : true}
+        variant="contained"
+      >
         Add
       </Button>
-    </Card>
+    </>
   );
 }

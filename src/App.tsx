@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { URL } from "./constants/URL";
-import TokenAdd from "./components/TokenAdd";
+import Dashboard from "./components/Dashboard";
 
 export default function App() {
   const [coinList, setCoinList] = useState<Token[]>(() => {
@@ -48,7 +48,7 @@ export default function App() {
             Update Data
           </Button>
         </Box>
-        <TokenAdd coinList={coinList} />
+        <Dashboard coinList={coinList} />
       </Container>
     </>
   );
