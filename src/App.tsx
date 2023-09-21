@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { URL } from "./constants/URL";
+import { ENDPOINT } from "./constants/apiEndpoints";
 import Dashboard from "./components/Dashboard";
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
   });
 
   function fetchList() {
-    fetch(URL.COINGECKO + "coins/list")
+    fetch(URL.COINGECKO + ENDPOINT.tokenList)
       .then((res) => res.json())
       .then((data) => {
         setCoinList(data);
