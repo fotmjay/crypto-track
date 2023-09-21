@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete, { AutocompleteChangeReason, AutocompleteInputChangeReason } from "@mui/material/Autocomplete";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { URL } from "./constants/URL";
 
 type Token = {
@@ -57,7 +57,7 @@ export default function App() {
 
   return (
     <>
-      <Container>
+      <Container sx={{ minWidth: "320px" }}>
         <Box
           sx={{
             display: "flex",
@@ -66,10 +66,10 @@ export default function App() {
             alignItems: "flex-start",
           }}
         >
-          <Typography sx={{}} align="center" variant="h1" gutterBottom>
+          <Typography sx={{ marginTop: "25px", "@media (max-width: 600px)": { fontSize: "3rem" } }} align="center" variant="h1" gutterBottom>
             CryptoTracker
           </Typography>
-          <Button sx={{ position: "absolute", right: "0" }} onClick={fetchList} variant="contained">
+          <Button sx={{ position: "absolute", right: "0" }} size="small" onClick={fetchList} variant="contained">
             Update Data
           </Button>
         </Box>
