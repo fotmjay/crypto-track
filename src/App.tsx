@@ -6,20 +6,28 @@ import { useState } from "react";
 import { URL } from "./constants/URL";
 import { ENDPOINT } from "./constants/apiEndpoints";
 import Dashboard from "./components/Dashboard";
+import CoinGeckoRef from "./components/CoinGeckoRef";
+import { RATELIMIT } from "./constants/rateLimit";
 
 export default function App() {
-  const [coinList, setCoinList] = useState<Token[]>(() => {
-    const list = localStorage.getItem("list");
+  const [fullTokenList, setFullTokenList] = useState<Token[]>(() => {
+    const list = localStorage.getItem("fullTokenList");
     return list ? JSON.parse(list) : [];
   });
 
   function fetchList() {
-    fetch(URL.COINGECKO + ENDPOINT.tokenList)
-      .then((res) => res.json())
-      .then((data) => {
-        setCoinList(data);
-        localStorage.setItem("list", JSON.stringify(data));
-      });
+    const lastUpdated = localStorage.getItem("fullTokenListUpdatedAt") || undefined;
+    // If last request was less than X seconds, do not fetch.
+    if (lastUpdated === undefined || Date.now() - Date.parse(lastUpdated) > RATELIMIT.fullTokenList) {
+      fetch(URL.COINGECKO + ENDPOINT.tokenList)
+        .then((res) => res.json())
+        .then((data) => {
+          setFullTokenList(data);
+          localStorage.setItem("fullTokenList", JSON.stringify(data));
+          const date = new Date();
+          localStorage.setItem("fullTokenListUpdatedAt", date.toISOString());
+        });
+    }
   }
 
   return (
@@ -46,10 +54,11 @@ export default function App() {
             CryptoTracker
           </Typography>
           <Button sx={{ position: "absolute", right: "0" }} size="small" onClick={fetchList} variant="contained">
-            Update Data
+            Update Token List
           </Button>
         </Box>
-        <Dashboard coinList={coinList} />
+        <Dashboard fullTokenList={fullTokenList} />
+        <CoinGeckoRef />
       </Container>
     </>
   );

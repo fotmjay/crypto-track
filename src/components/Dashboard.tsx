@@ -6,11 +6,11 @@ import Container from "@mui/material/Container";
 import { useState } from "react";
 
 type Props = {
-  coinList: Token[];
+  fullTokenList: Token[];
 };
 
 export default function Dashboard(props: Props) {
-  const [savedTokens, setSavedTokens] = useState<Token[]>(() => getSavedList());
+  const [savedTokenList, setSavedTokenList] = useState<Token[]>(() => getSavedList());
 
   function getSavedList() {
     const list = localStorage.getItem("savedList");
@@ -23,7 +23,7 @@ export default function Dashboard(props: Props) {
 
   function addToken(token: Token | null) {
     if (token !== null) {
-      setSavedTokens((list) => {
+      setSavedTokenList((list) => {
         if (!list.find((tokenFromList) => tokenFromList.id === token.id)) {
           list.push(token);
           localStorage.setItem("savedList", JSON.stringify(list));
@@ -36,10 +36,10 @@ export default function Dashboard(props: Props) {
   return (
     <Card variant="outlined">
       <Container sx={{ display: "flex", justifyContent: "center", alignContent: "center", padding: "20px" }}>
-        <TokenAdd addToken={addToken} coinList={props.coinList} />
+        <TokenAdd addToken={addToken} fullTokenList={props.fullTokenList} />
       </Container>
       <Divider />
-      <TokenList tokenList={savedTokens} />
+      <TokenList savedTokenList={savedTokenList} />
     </Card>
   );
 }

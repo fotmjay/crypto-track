@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { useState, useRef } from "react";
 
 type Props = {
-  coinList: Token[];
+  fullTokenList: Token[];
   addToken: Function;
 };
 
@@ -23,7 +23,7 @@ export default function TokenAdd(props: Props) {
     if (searchText.length < 3) {
       return [];
     } else {
-      const newList = props.coinList.filter((token) => {
+      const newList = props.fullTokenList.filter((token) => {
         return token.id.toLowerCase().startsWith(searchText.toLowerCase()) || token.symbol.toLowerCase() === searchText.toLowerCase();
       });
       return newList;
