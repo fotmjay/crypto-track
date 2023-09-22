@@ -1,38 +1,68 @@
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import { useState } from "react";
+// COMPONENTS
+import CoinGeckoRef from "./components/CoinGeckoRef";
+import Dashboard from "./components/Dashboard";
+
+// CONSTANTS
 import { URL } from "./constants/URL";
 import { ENDPOINT } from "./constants/apiEndpoints";
-import Dashboard from "./components/Dashboard";
-import CoinGeckoRef from "./components/CoinGeckoRef";
 import { RATELIMIT } from "./constants/rateLimit";
 
+// HELPERS
+import { lsGet, lsSet } from "./helpers/localStorageHelper";
+
+// ICONS
+
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+
+// REACT & MATERIAL IMPORTS
+import { useEffect, useState } from "react";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+// TYPES
+import { Token } from "./shared/types/types";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
 export default function App() {
-  const [fullTokenList, setFullTokenList] = useState<Token[]>(() => {
-    const list = localStorage.getItem("fullTokenList");
-    return list ? JSON.parse(list) : [];
-  });
+  const [fullTokenList, setFullTokenList] = useState<Token[]>(() => lsGet.list("fullTokenList"));
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    if (fullTokenList.length === 0) {
+      fetchList();
+    }
+  }, []);
 
   function fetchList() {
-    const lastUpdated = localStorage.getItem("fullTokenListUpdatedAt") || undefined;
-    // If last request was less than X seconds, do not fetch.
-    if (lastUpdated === undefined || Date.now() - Date.parse(lastUpdated) > RATELIMIT.fullTokenList) {
+    const lastUpdated = lsGet.date("fullTokenListUpdatedAt");
+    // If last request was less than RATELIMIT seconds, do not fetch.
+    if (lastUpdated === undefined || Date.parse(new Date().toISOString()) - lastUpdated > RATELIMIT.fullTokenList) {
+      lsSet.date("fullTokenListUpdatedAt");
       fetch(URL.COINGECKO + ENDPOINT.tokenList)
         .then((res) => res.json())
         .then((data) => {
+          setErrorMessage("");
           setFullTokenList(data);
           localStorage.setItem("fullTokenList", JSON.stringify(data));
-          const date = new Date();
-          localStorage.setItem("fullTokenListUpdatedAt", date.toISOString());
+        })
+        .catch((err) => {
+          setErrorMessage("Failed to receive data from CoinGecko.");
+          console.error(err);
         });
     }
   }
 
   return (
-    <>
-      <Container sx={{ minWidth: "320px" }}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Container sx={{ marginTop: "1rem", minWidth: "320px" }}>
         <Box
           sx={{
             display: "flex",
@@ -57,9 +87,16 @@ export default function App() {
             Update Token List
           </Button>
         </Box>
-        <Dashboard fullTokenList={fullTokenList} />
+        {errorMessage ? (
+          <Typography align="center" color="error">
+            {errorMessage}
+          </Typography>
+        ) : (
+          ""
+        )}
+        <Dashboard setErrorMessage={setErrorMessage} fullTokenList={fullTokenList} />
         <CoinGeckoRef />
       </Container>
-    </>
+    </ThemeProvider>
   );
 }

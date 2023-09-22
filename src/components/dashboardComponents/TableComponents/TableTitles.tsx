@@ -1,12 +1,23 @@
-import { TableCell, useMediaQuery } from "@mui/material";
-import TableRow from "@mui/material/TableRow";
-import { tableCategories } from "../../../constants/tableCategories";
+// React & Mui
+import { TableCell, useMediaQuery, TableRow } from "@mui/material";
 
-export default function TableTitles() {
+// Type definitions
+type Props = {
+  categories: Size;
+};
+
+type Size = {
+  large: string[];
+  small: string[];
+};
+
+// Main
+export default function TableTitles(props: Props) {
   const mediaSmall = useMediaQuery("(max-width:695px)");
+
   return (
     <TableRow>
-      {tableCategories.head[mediaSmall ? "small" : "large"].map((title, i) => (
+      {props.categories[mediaSmall ? "small" : "large"].map((title, i) => (
         <TableCell key={i} align={i === 0 ? "left" : "right"}>
           {title}
         </TableCell>

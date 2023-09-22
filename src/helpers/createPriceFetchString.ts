@@ -1,3 +1,6 @@
+// Types
+import type { Token } from "../shared/types/types";
+
 export default function createPriceFetchString(tokenList: Token[]) {
   return (
     tokenList.reduce((acc, token, i) => (i === 0 ? token.id : `${acc}%2C${token.id}`), "") +
