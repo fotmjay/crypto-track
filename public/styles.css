@@ -1,6 +1,7 @@
 @media screen and (max-width: 600px) {
   .css-apqrd9-MuiTableBody-root td,
-  .css-1q1u3t4-MuiTableRow-root th {
+  .css-1q1u3t4-MuiTableRow-root th,
+  .css-1pgphf0-MuiTableRow-root th {
     padding: 6px 6px !important;
   }
 }

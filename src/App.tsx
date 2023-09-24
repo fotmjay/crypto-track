@@ -12,13 +12,13 @@ import { lsGet, lsSet } from "./helpers/localStorageHelper";
 
 // ICONS
 
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 // REACT & MATERIAL IMPORTS
 import { useEffect, useState } from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Button, Container, Typography, Switch } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // TYPES
@@ -30,15 +30,29 @@ const darkTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
 export default function App() {
   const [fullTokenList, setFullTokenList] = useState<Token[]>(() => lsGet.list("fullTokenList"));
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [darkMode, setDarkMode] = useState<boolean>(() => localStorage.getItem("chosenTheme") === "true");
 
   useEffect(() => {
     if (fullTokenList.length === 0) {
       fetchList();
     }
   }, []);
+
+  function switchTheme() {
+    setDarkMode((darkMode) => {
+      localStorage.setItem("chosenTheme", `${!darkMode}`);
+      return !darkMode;
+    });
+  }
 
   function fetchList() {
     const lastUpdated = lsGet.date("fullTokenListUpdatedAt");
@@ -60,7 +74,7 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Container sx={{ marginTop: "1rem", minWidth: "320px" }}>
         <Box
@@ -86,6 +100,10 @@ export default function App() {
           <Button sx={{ position: "absolute", right: "0" }} size="small" onClick={fetchList} variant="contained">
             Update Token List
           </Button>
+          <Box sx={{ display: "flex", position: "absolute", left: "0", alignItems: "center" }}>
+            <Switch onClick={switchTheme} checked={darkMode}></Switch>
+            {darkMode ? <LightModeTwoToneIcon /> : <DarkModeIcon />}
+          </Box>
         </Box>
         {errorMessage ? (
           <Typography align="center" color="error">

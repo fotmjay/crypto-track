@@ -31,8 +31,6 @@ type Props = {
 export default function Dashboard(props: Props) {
   const [savedTokenList, setSavedTokenList] = useState<Token[]>(lsGet.list("savedList"));
 
-  const mediaSmall = useMediaQuery("(max-width:695px)");
-
   useEffect(() => {
     if (rateLimiting() === true) {
       savedTokensPriceFetch();
@@ -61,7 +59,6 @@ export default function Dashboard(props: Props) {
   function savedTokensPriceFetch() {
     if (rateLimiting() === false) {
       props.setErrorMessage("Please wait a few seconds before refreshing.");
-      console.log("limited");
       return;
     }
     lsSet.date("savedListUpdatedAt");
