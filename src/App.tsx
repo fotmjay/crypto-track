@@ -39,7 +39,7 @@ const lightTheme = createTheme({
 export default function App() {
   const [fullTokenList, setFullTokenList] = useState<Token[]>(() => lsGet.list("fullTokenList"));
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [darkMode, setDarkMode] = useState<boolean>(() => localStorage.getItem("chosenTheme") === "true");
+  const [darkMode, setDarkMode] = useState<boolean>(() => localStorage.getItem("darkMode") === "true");
 
   useEffect(() => {
     if (fullTokenList.length === 0) {
@@ -49,7 +49,7 @@ export default function App() {
 
   function switchTheme() {
     setDarkMode((darkMode) => {
-      localStorage.setItem("chosenTheme", `${!darkMode}`);
+      localStorage.setItem("darkMode", `${!darkMode}`);
       return !darkMode;
     });
   }
