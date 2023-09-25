@@ -1,6 +1,6 @@
 # Crypto Tracker
 
-Crypto Tracker is a web application designed to access cryptocurrency prices (provided by CoinGecko) to users.  It is meant as a replacement to other wallets/trackers that store data about the user habits, holdings or transactions.  Everything in Crypto Tracker is stored in the user's browser (restitution from file to be added).
+Crypto Tracker is a web application designed to track user-chosen crypto prices and transactions.  It is meant as a replacement to other wallets/trackers that store data about the user habits, holdings or transactions.  Everything in Crypto Tracker is stored in the user's browser (restitution from file to be added).
 
 Crypto Tracker is made essentially as a 1-page-app using React, TypeScript and Material-UI.
 
