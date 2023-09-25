@@ -38,12 +38,10 @@ export default function TransactionModal(props: Props) {
   };
 
   return (
-    <div>
-      <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-        <Box sx={style}>
-          <TransactionMenu token={props.token} />
-        </Box>
-      </Modal>
-    </div>
+    <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+      <Box sx={style}>
+        <TransactionMenu token={props.token} />
+      </Box>
+    </Modal>
   );
 }

@@ -20,8 +20,8 @@ export default function TransactionMenu(props: Props) {
 
   return (
     <Container>
-      <Box sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", marginBottom: "10px" }}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "10px" }}>
+        <Typography id="modal-modal-title" variant="body1" component="h2">
           {props.token?.name}
         </Typography>
         <Button onClick={buyAction}>BUY</Button>
