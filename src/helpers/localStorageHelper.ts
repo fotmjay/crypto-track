@@ -1,3 +1,5 @@
+import { Token } from "../shared/types/types";
+
 export const lsGet = {
   list: (key: string) => {
     const list = localStorage.getItem(key);
@@ -30,5 +32,11 @@ export const lsSet = {
     const date = new Date().toISOString();
     localStorage.setItem(key, date);
     return Date.parse(date);
+  },
+};
+
+export const lsKey = {
+  format: (token: Token) => {
+    return `${token.id}Transactions`;
   },
 };

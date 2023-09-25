@@ -11,6 +11,7 @@ type Rows = {
 type Props = {
   savedTokenList: Token[];
   namedProperties: string[];
+  openModal: Function;
 };
 
 export type { Rows, Props };
