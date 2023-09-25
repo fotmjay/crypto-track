@@ -11,11 +11,9 @@ type Props = {
 export default function TransactionInput(props: Props) {
   const [amount, setAmount] = useState<string>("");
   const [togglePriceTextField, setTogglePriceTextField] = useState<boolean>(false);
-  const [changedPrice, setChangedPrice] = useState<string | null>(null);
+  const [tokenPrice, setTokenPrice] = useState<string>(props.token.usd || "");
 
   const mediaSmall = useMediaQuery("(max-width:550px)");
-
-  const display = mediaSmall ? "block" : "flex";
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>, stateChange: Function) {
     if (/^[+-]?((\.\d+)|(\d+(\.\d+)?)|(\d+\.))$/.test(event.target.value) || event.target.value === "") {
@@ -23,8 +21,14 @@ export default function TransactionInput(props: Props) {
     }
   }
 
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.keyCode === 13) {
+      modifyPrice();
+    }
+  }
+
   function modifyPrice() {
-    setTogglePriceTextField(true);
+    setTogglePriceTextField((toggle) => !toggle);
   }
 
   function handleSave() {
@@ -32,8 +36,8 @@ export default function TransactionInput(props: Props) {
   }
 
   return (
-    <Box sx={{ display: { display }, justifyContent: "center", alignItems: "center", alignContent: "center" }}>
-      <Box marginLeft="auto">
+    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
+      <Box marginX={mediaSmall ? "auto" : "inherit"}>
         <TextField
           sx={{ paddingBottom: "10px" }}
           color={props.txType === "Buy" ? "success" : "error"}
@@ -53,13 +57,14 @@ export default function TransactionInput(props: Props) {
         {togglePriceTextField ? (
           <TextField
             size="small"
-            defaultValue={props.token.usd}
-            value={changedPrice}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, setChangedPrice)}
+            value={tokenPrice || ""}
+            onBlur={modifyPrice}
+            onKeyDown={handleKeyDown}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, setTokenPrice)}
           />
         ) : (
           <Typography onClick={modifyPrice} variant="caption" fontSize="0.8125rem" px="8px" lineHeight="1.75">
-            ${changedPrice ? changedPrice : props.token.usd}
+            ${tokenPrice}
           </Typography>
         )}
       </Box>
