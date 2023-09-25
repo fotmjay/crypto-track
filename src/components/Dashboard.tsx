@@ -14,7 +14,7 @@ import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
 import { largeNumberFormat, dailyChangeFormat, smallNumberFormat } from "../helpers/numberFormatting";
 
 // React and Mui
-import { Card, Divider, Container, Button, useMediaQuery } from "@mui/material";
+import { Card, Divider, Container, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
 // Types

@@ -4,7 +4,6 @@ import { TableRow, TableCell, TableBody } from "@mui/material";
 // Types
 import type { Props } from "./TableRowsTypes";
 import { Token } from "../../../shared/types/types";
-import { Typography } from "@mui/material/styles/createTypography";
 
 // Main
 export default function TableRows(props: Props) {

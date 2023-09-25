@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
+import { Box, Modal, useMediaQuery } from "@mui/material";
 import { Token } from "../../../shared/types/types";
 import { lsGet, lsKey } from "../../../helpers/localStorageHelper";
 import { useState } from "react";
