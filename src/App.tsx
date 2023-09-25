@@ -42,9 +42,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(() => localStorage.getItem("darkMode") === "true");
 
   useEffect(() => {
-    if (fullTokenList.length === 0) {
-      fetchList();
-    }
+    fetchList();
   }, []);
 
   function switchTheme() {
