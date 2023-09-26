@@ -1,27 +1,15 @@
-import { Box, Modal, useMediaQuery } from "@mui/material";
-import { Token } from "../../../shared/types/types";
-import { lsGet, lsKey } from "../../../helpers/localStorageHelper";
-import { useState } from "react";
+import { Box, Modal, Typography, useMediaQuery } from "@mui/material";
+import type { Token } from "../../../shared/types/types";
 import TransactionMenu from "./TransactionMenu";
+import TransactionList from "./TransactionList";
 
 type Props = {
   token: Token;
   closeModal: Function;
-};
-
-type txData = {
-  transactions: Transaction[];
-};
-
-type Transaction = {
-  txDate: string;
-  price: string;
-  amount: string;
+  setSavedTokenList: Function;
 };
 
 export default function TransactionModal(props: Props) {
-  const [txData, setTxData] = useState<txData | null>(lsGet.list(lsKey.format(props.token)) || null);
-
   const mediaSmall = useMediaQuery("(max-width:695px)");
   const modalWidth = mediaSmall ? "90%" : "625px"; // 625px is max size as 90% of 695px is ~625px
 
@@ -40,7 +28,8 @@ export default function TransactionModal(props: Props) {
   return (
     <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
-        <TransactionMenu token={props.token} />
+        <TransactionMenu setSavedTokenList={props.setSavedTokenList} token={props.token} />
+        {props.token?.transactionList?.length > 0 ? <TransactionList token={props.token} /> : <Typography variant="body2">No transactions listed.</Typography>}
       </Box>
     </Modal>
   );

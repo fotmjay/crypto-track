@@ -16,6 +16,7 @@ import TransactionModal from "./TransactionComponent/TransactionModal";
 // Type definition
 type Props = {
   savedTokenList: Token[];
+  setSavedTokenList: Function;
 };
 
 // Main
@@ -36,9 +37,9 @@ export default function TokenList(props: Props) {
         <TableHead>
           <TableTitles categories={tableConfig.mainTableCategories} />
         </TableHead>
-        <TableRows openModal={openModal} namedProperties={tableConfig.mainTableCategories.apiRelated} savedTokenList={props.savedTokenList} />
+        <TableRows firstElementClick={openModal} namedProperties={tableConfig.mainTableCategories.apiRelated} dataList={props.savedTokenList} />
       </Table>
-      {tokenForModal ? <TransactionModal token={tokenForModal} closeModal={closeModal} /> : ""}
+      {tokenForModal ? <TransactionModal setSavedTokenList={props.setSavedTokenList} token={tokenForModal} closeModal={closeModal} /> : ""}
     </TableContainer>
   );
 }

@@ -18,7 +18,7 @@ export default function TableTitles(props: Props) {
   return (
     <TableRow>
       {props.categories[mediaSmall ? "small" : "large"].map((title, i) => (
-        <TableCell key={i} align={i === 0 ? "left" : "right"}>
+        <TableCell key={`${title}${i}`} align={i === 0 ? "left" : "right"}>
           {title}
         </TableCell>
       ))}

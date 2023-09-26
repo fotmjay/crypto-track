@@ -1,4 +1,4 @@
-import { Token } from "../../../shared/types/types";
+import { Token, Transaction } from "../../../shared/types/types";
 
 type Rows = {
   token: Token;
@@ -9,9 +9,9 @@ type Rows = {
 };
 
 type Props = {
-  savedTokenList: Token[];
+  dataList: any;
   namedProperties: string[];
-  openModal: Function;
+  firstElementClick: Function | null;
 };
 
 export type { Rows, Props };

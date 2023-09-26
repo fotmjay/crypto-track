@@ -7,6 +7,6 @@ export const tableConfig = Object.freeze({
   txDataTableCategories: {
     large: ["Date", "Amount", "Action", "Price", "Total USD"],
     small: ["Date", "Qty", "Tx", "Price", "Total"],
-    apiRelated: ["date", "amount", "action", "price", "total"],
+    apiRelated: ["txDate", "amount", "action", "price", "total"],
   },
 });

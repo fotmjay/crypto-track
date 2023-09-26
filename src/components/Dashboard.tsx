@@ -89,7 +89,7 @@ export default function Dashboard(props: Props) {
         </Button>
       </Container>
       <Divider />
-      <TokenList savedTokenList={savedTokenList} />
+      <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
     </Card>
   );
 }

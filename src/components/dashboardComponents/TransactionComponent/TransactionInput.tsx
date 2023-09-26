@@ -6,14 +6,19 @@ type Props = {
   token: Token;
   txType: string;
   closeInput: Function;
+  tokenPrice: string;
+  setTokenPrice: Function;
+  txAmount: string;
+  setTxAmount: Function;
+  handleSave: Function;
 };
 
 export default function TransactionInput(props: Props) {
-  const [amount, setAmount] = useState<string>("");
   const [togglePriceTextField, setTogglePriceTextField] = useState<boolean>(false);
-  const [tokenPrice, setTokenPrice] = useState<string>(props.token.usd || "");
 
   const mediaSmall = useMediaQuery("(max-width:550px)");
+  // Work around to make the TextField the size of the text in it.
+  const inputSize = `${props.tokenPrice.length * 11}px`;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>, stateChange: Function) {
     if (/^[+-]?((\.\d+)|(\d+(\.\d+)?)|(\d+\.))$/.test(event.target.value) || event.target.value === "") {
@@ -31,10 +36,6 @@ export default function TransactionInput(props: Props) {
     setTogglePriceTextField((toggle) => !toggle);
   }
 
-  function handleSave() {
-    console.log("saved: " + amount);
-  }
-
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
       <Box marginX={mediaSmall ? "auto" : "inherit"}>
@@ -43,12 +44,12 @@ export default function TransactionInput(props: Props) {
           color={props.txType === "Buy" ? "success" : "error"}
           label={props.txType}
           size="small"
-          value={amount}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, setAmount)}
+          value={props.txAmount}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTxAmount)}
         />
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "10px" }}>
-        <Button size="small" onClick={handleSave}>
+        <Button size="small" onClick={() => props.handleSave()}>
           SAVE
         </Button>
         <Button size="small" onClick={() => props.closeInput()}>
@@ -57,14 +58,16 @@ export default function TransactionInput(props: Props) {
         {togglePriceTextField ? (
           <TextField
             size="small"
-            value={tokenPrice || ""}
+            autoFocus={true}
+            inputProps={{ sx: { width: inputSize, padding: "6px" } }}
+            value={props.tokenPrice}
             onBlur={modifyPrice}
             onKeyDown={handleKeyDown}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, setTokenPrice)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
           />
         ) : (
           <Typography onClick={modifyPrice} variant="caption" fontSize="0.8125rem" px="8px" lineHeight="1.75">
-            ${tokenPrice}
+            ${props.tokenPrice}
           </Typography>
         )}
       </Box>
