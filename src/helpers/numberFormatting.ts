@@ -3,11 +3,12 @@ const dailyChangeFormat = (number: number) => {
 };
 
 const smallNumberFormat = (number: number) => {
-  if (number < 0.01) {
+  let num = Math.abs(number);
+  if (num < 0.01) {
     return number.toFixed(7);
-  } else if (number < 0.1) {
+  } else if (num < 0.1) {
     return number.toFixed(4);
-  } else if (number < 100) {
+  } else if (num < 100) {
     return number.toFixed(2);
   } else {
     return Math.floor(number).toString();

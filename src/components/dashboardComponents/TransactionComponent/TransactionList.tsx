@@ -2,7 +2,6 @@ import TableRows from "../TableComponents/TableRows";
 import { TableContainer, Paper, Table, TableHead } from "@mui/material";
 import { tableConfig } from "../../../constants/tableConfig";
 import TableTitles from "../TableComponents/TableTitles";
-import TransactionModal from "./TransactionModal";
 import { Token } from "../../../shared/types/types";
 
 type Props = {

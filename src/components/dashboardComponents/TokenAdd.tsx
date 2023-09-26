@@ -23,6 +23,7 @@ export default function TokenAdd(props: Props) {
   const selectedToken = useRef<Token | null>(null);
 
   function handleInputChange(_event: React.SyntheticEvent<Element, Event>, value: string, _reason: AutocompleteInputChangeReason) {
+    selectedToken.current = null;
     setSearchText(value);
   }
 

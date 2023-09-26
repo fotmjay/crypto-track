@@ -7,7 +7,7 @@ import { tableConfig } from "../../constants/tableConfig";
 
 // React and Mui
 import { TableHead, Paper, Table, TableContainer } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Types
 import type { Token } from "../../shared/types/types";
@@ -22,6 +22,14 @@ type Props = {
 // Main
 export default function TokenList(props: Props) {
   const [tokenForModal, setTokenForModal] = useState<Token | null>(null);
+
+  useEffect(() => {
+    if (tokenForModal !== null) {
+      setTokenForModal((token) => {
+        return props.savedTokenList.find((savedToken) => savedToken.id === token?.id) || null;
+      });
+    }
+  }, [props.savedTokenList]);
 
   function openModal(token: Token) {
     setTokenForModal(token);
