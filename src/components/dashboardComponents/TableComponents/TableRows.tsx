@@ -22,10 +22,25 @@ export default function TableRows(props: Props) {
         return (
           <TableRow key={data.id || data.txDate} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
             {props.namedProperties.map((property, i) => {
-              const cursorType = i === 0 && props.firstElementClick ? "pointer" : "cursor";
-              const alignment = i === 0 ? "left" : "right";
-              const fontColor = data.action === "Buy" ? "lightgreen" : data.action === "Sell" ? "red" : "";
-              const onClickFunction = i === 0 ? handleClick : undefined;
+              let cursorType = "cursor";
+              let alignment: "right" | "left" = "right";
+              let onClickFunction = undefined;
+              if (i === 0) {
+                alignment = "left";
+                cursorType = props.firstElementClick ? "pointer" : "cursor";
+                onClickFunction = handleClick;
+              }
+              let fontColor = "";
+              switch (data.action) {
+                case "Buy":
+                  fontColor = "lightgreen";
+                  break;
+                case "Sell":
+                  fontColor = "red";
+                  break;
+                default:
+                  break;
+              }
               return (
                 <TableCell sx={{ cursor: cursorType, color: fontColor }} key={property} align={alignment} onClick={onClickFunction}>
                   {numbersPropertiesToFormat.includes(property)
