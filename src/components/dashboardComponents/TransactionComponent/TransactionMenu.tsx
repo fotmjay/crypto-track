@@ -45,7 +45,7 @@ export default function TransactionMenu(props: Props) {
   }
 
   function formatAverage(amount: string, average: string) {
-    if (parseInt(amount) === 0) {
+    if (parseFloat(amount) === 0) {
       const avg = parseInt(average, 10);
       return `Current ${avg > 0 ? "loss" : "profit"}: ${Math.abs(avg)}$`;
     } else {
