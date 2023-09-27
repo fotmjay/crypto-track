@@ -49,7 +49,7 @@ export default function TransactionMenu(props: Props) {
       const avg = parseInt(average, 10);
       return `Current ${avg > 0 ? "loss" : "profit"}: ${Math.abs(avg)}$`;
     } else {
-      return `${smallNumberFormat(parseFloat(amount))} @ $${smallNumberFormat(parseFloat(average))}`;
+      return `${smallNumberFormat(parseFloat(amount))} @ $${smallNumberFormat(parseFloat(average))} | Total: ${(+amount * +average).toFixed(2)}$`;
     }
   }
 
@@ -76,7 +76,7 @@ export default function TransactionMenu(props: Props) {
           token={props.token}
         />
       )}
-      {props.token.averagePrice && (
+      {tx.length === 0 && props.token.averagePrice && (
         <Typography variant="h6" gutterBottom textAlign="left">
           {formatAverage(props.token.amount, props.token.averagePrice)}
         </Typography>
