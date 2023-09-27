@@ -1,4 +1,4 @@
-import { TableCell } from "@mui/material";
+import { TableCell, useMediaQuery } from "@mui/material";
 import { smallNumberFormat } from "../../../helpers/numberFormatting";
 import dateFormat from "../../../helpers/dateFormat";
 import { MouseEventHandler } from "react";
@@ -11,6 +11,7 @@ type Props = {
 };
 
 export default function CellsForTable(props: Props) {
+  const mediaSmall = useMediaQuery("(max-width:450px)");
   const numbersPropertiesToFormat = ["amount", "price", "total", "averagePrice"];
   let cursorType = "cursor";
   let alignment: "right" | "left" = "right";
@@ -34,7 +35,7 @@ export default function CellsForTable(props: Props) {
       {numbersPropertiesToFormat.includes(props.property)
         ? smallNumberFormat(parseFloat(props.dataFromList[props.property]))
         : props.property === "txDate"
-        ? dateFormat(props.dataFromList[props.property])
+        ? dateFormat(props.dataFromList[props.property], mediaSmall)
         : props.dataFromList[props.property] || "N/A"}
     </TableCell>
   );
