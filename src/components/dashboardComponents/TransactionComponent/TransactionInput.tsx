@@ -21,6 +21,7 @@ export default function TransactionInput(props: Props) {
   const inputSize = `${props.tokenPrice.length * 11}px`;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>, stateChange: Function) {
+    // VALIDATE ONLY FLOAT (1, 0.1, 1.2)
     if (/^[+-]?((\.\d+)|(\d+(\.\d+)?)|(\d+\.))$/.test(event.target.value) || event.target.value === "") {
       stateChange(event.target.value);
     }

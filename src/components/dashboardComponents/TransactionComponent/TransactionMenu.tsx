@@ -22,6 +22,9 @@ export default function TransactionMenu(props: Props) {
   }
 
   function handleSave() {
+    if (txAmount === "" || txAmount === "0") {
+      return;
+    }
     const transaction = txFormatting(txAmount, tokenPrice, tx);
     props.setSavedTokenList((savedTokenList: Token[]) => {
       const newSavedTokenList = savedTokenList.map((token) => {
@@ -38,6 +41,7 @@ export default function TransactionMenu(props: Props) {
       return newSavedTokenList;
     });
     setTxAmount("");
+    setTx("");
   }
 
   function formatAverage(amount: string, average: string) {

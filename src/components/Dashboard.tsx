@@ -28,15 +28,19 @@ type Props = {
 
 // Main
 
-const tokenModel = {
-  usd: "",
-  usd_market_cap: "",
-  usd_24h_change: "",
-  averagePrice: "",
-  amount: "",
-  transactionList: [],
-  rawProfit: "",
-};
+function createTokenModel(token: Partial<Token>): Token {
+  return {
+    usd: "",
+    usd_market_cap: "",
+    usd_24h_change: "",
+    averagePrice: "",
+    amount: "",
+    name: capitalizeFirstLetter(token.name || ""),
+    symbol: token.symbol || "",
+    transactionList: [],
+    id: token.id || "",
+  };
+}
 
 export default function Dashboard(props: Props) {
   const [savedTokenList, setSavedTokenList] = useState<Token[]>(lsGet.list("savedList"));
@@ -58,7 +62,7 @@ export default function Dashboard(props: Props) {
       setSavedTokenList((list) => {
         const newList = [...list];
         if (!list.find((tokenFromList) => tokenFromList.id === token.id)) {
-          newList.push({ ...token, ...tokenModel, name: capitalizeFirstLetter(token.name) });
+          newList.push(createTokenModel(token));
         }
         localStorage.setItem("savedList", JSON.stringify(newList));
         return newList;

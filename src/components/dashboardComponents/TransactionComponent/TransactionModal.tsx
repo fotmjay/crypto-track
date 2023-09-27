@@ -29,7 +29,7 @@ export default function TransactionModal(props: Props) {
     <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
         <TransactionMenu setSavedTokenList={props.setSavedTokenList} token={props.token} />
-        {props.token?.transactionList?.length > 0 ? <TransactionList token={props.token} /> : <Typography variant="body2">No transactions listed.</Typography>}
+        {props.token.transactionList.length > 0 ? <TransactionList token={props.token} /> : <Typography variant="body2">No transactions listed.</Typography>}
       </Box>
     </Modal>
   );
