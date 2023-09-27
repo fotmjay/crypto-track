@@ -95,13 +95,7 @@ export default function Dashboard(props: Props) {
       .catch((err) => console.error(err));
   }
 
-  const value = savedTokenList.reduce((acc, v) => {
-    if (+v.amount === 0) {
-      return acc + +v.averagePrice;
-    } else {
-      return acc + +v.amount * +v.averagePrice;
-    }
-  }, 0);
+  const value = savedTokenList.reduce((acc, v) => acc + +v.amount * +v.usd, 0);
 
   function toggleWalletTotal() {
     setHideAmount((toggle) => {
