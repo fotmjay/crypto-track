@@ -11,7 +11,7 @@ type Rows = {
 type Props = {
   dataList: any;
   namedProperties: string[];
-  firstElementClick: Function | null;
+  firstElementClick?: Function;
 };
 
 export type { Rows, Props };

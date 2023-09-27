@@ -15,7 +15,7 @@ export default function TransactionList(props: Props) {
         <TableHead>
           <TableTitles categories={tableConfig.txDataTableCategories} />
         </TableHead>
-        <TableRows firstElementClick={null} namedProperties={tableConfig.txDataTableCategories.apiRelated} dataList={props.token.transactionList} />
+        <TableRows namedProperties={tableConfig.txDataTableCategories.apiRelated} dataList={props.token.transactionList} />
       </Table>
     </TableContainer>
   );

@@ -8,11 +8,9 @@ type Token = {
   averagePrice: string;
   amount: string;
   transactionList: Transaction[];
-  [key: string]: any;
 };
 
 type Transaction = {
-  [key: string]: any;
   txDate: string;
   price: string;
   amount: string;

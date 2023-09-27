@@ -10,26 +10,25 @@ import dateFormat from "../../../helpers/dateFormat";
 
 // Main
 export default function TableRows(props: Props) {
-  const clickable = props.firstElementClick === null ? false : true;
-  function handleClick(token: Token | Transaction) {
-    if (props.firstElementClick !== null) {
-      props.firstElementClick(token);
-    }
-  }
-
   const numbersPropertiesToFormat = ["amount", "price", "total", "averagePrice"];
 
   return (
     <TableBody>
-      {props.dataList.map((data: Token | Transaction) => {
+      {props.dataList.map((data: any) => {
+        function handleClick() {
+          if (props.firstElementClick !== undefined) {
+            props.firstElementClick(data);
+          }
+        }
         return (
           <TableRow key={data.id || data.txDate} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
             {props.namedProperties.map((property, i) => {
-              const cursorType = i === 0 && clickable ? "pointer" : "cursor";
+              const cursorType = i === 0 && props.firstElementClick ? "pointer" : "cursor";
               const alignment = i === 0 ? "left" : "right";
               const fontColor = data.action === "Buy" ? "lightgreen" : data.action === "Sell" ? "red" : "";
+              const onClickFunction = i === 0 ? handleClick : undefined;
               return (
-                <TableCell sx={{ cursor: cursorType, color: fontColor }} key={`${property}`} align={alignment} onClick={() => handleClick(data)}>
+                <TableCell sx={{ cursor: cursorType, color: fontColor }} key={property} align={alignment} onClick={onClickFunction}>
                   {numbersPropertiesToFormat.includes(property)
                     ? smallNumberFormat(parseFloat(data[property]))
                     : property === "txDate"
