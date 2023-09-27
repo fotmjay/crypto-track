@@ -3,7 +3,6 @@ import { TableRow, TableCell, TableBody } from "@mui/material";
 
 // Types
 import type { Props } from "./TableRowsTypes";
-import { Token, Transaction } from "../../../shared/types/types";
 
 import { smallNumberFormat } from "../../../helpers/numberFormatting";
 import dateFormat from "../../../helpers/dateFormat";
