@@ -113,9 +113,11 @@ export default function Dashboard(props: Props) {
         </Button>
       </Container>
       <Divider />
-      <Typography padding="12px" align="center" variant="h4" onClick={toggleWalletTotal}>
-        {hideAmount ? "******" : value.toFixed(0)}$
-      </Typography>
+      {savedTokenList.length > 0 && (
+        <Typography padding="12px" align="center" variant="h4" onClick={toggleWalletTotal}>
+          {hideAmount ? "******" : value.toFixed(0)}$
+        </Typography>
+      )}
       <Divider />
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
     </Card>

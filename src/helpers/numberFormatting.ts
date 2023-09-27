@@ -3,7 +3,7 @@ const dailyChangeFormat = (number: number) => {
 };
 
 const smallNumberFormat = (number: number) => {
-  let num = Math.abs(number);
+  const num = Math.abs(number);
   if (num < 0.01) {
     return number.toFixed(7);
   } else if (num < 0.1) {
