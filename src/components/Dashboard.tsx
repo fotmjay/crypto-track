@@ -59,8 +59,8 @@ export default function Dashboard(props: Props) {
         const newList = [...list];
         if (!list.find((tokenFromList) => tokenFromList.id === token.id)) {
           newList.push({ ...token, ...tokenModel, name: capitalizeFirstLetter(token.name) });
-          localStorage.setItem("savedList", JSON.stringify(newList));
         }
+        localStorage.setItem("savedList", JSON.stringify(newList));
         return newList;
       });
     }
