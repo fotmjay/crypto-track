@@ -14,7 +14,7 @@ import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
 import { largeNumberFormat, dailyChangeFormat, smallNumberFormat } from "../helpers/numberFormatting";
 
 // React and Mui
-import { Card, Divider, Container, Button } from "@mui/material";
+import { Card, Divider, Container, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 // Types
@@ -44,6 +44,7 @@ function createTokenModel(token: Partial<Token>): Token {
 
 export default function Dashboard(props: Props) {
   const [savedTokenList, setSavedTokenList] = useState<Token[]>(lsGet.list("savedList"));
+  const [hideAmount, setHideAmount] = useState<boolean>(localStorage.getItem("hideWalletAmount") === "true" || false);
 
   useEffect(() => {
     if (rateLimiting() === true) {
@@ -94,6 +95,21 @@ export default function Dashboard(props: Props) {
       .catch((err) => console.error(err));
   }
 
+  const value = savedTokenList.reduce((acc, v) => {
+    if (+v.amount === 0) {
+      return acc + +v.averagePrice;
+    } else {
+      return acc + +v.amount * +v.averagePrice;
+    }
+  }, 0);
+
+  function toggleWalletTotal() {
+    setHideAmount((toggle) => {
+      localStorage.setItem("hideWalletAmount", `${!toggle}`);
+      return !toggle;
+    });
+  }
+
   return (
     <Card variant="outlined">
       <Container sx={{ display: "flex", justifyContent: "center", alignContent: "center", padding: "20px" }}>
@@ -102,6 +118,10 @@ export default function Dashboard(props: Props) {
           Refresh
         </Button>
       </Container>
+      <Divider />
+      <Typography align="center" variant="h4" onClick={toggleWalletTotal}>
+        {hideAmount ? "******" : value.toFixed(0)}$
+      </Typography>
       <Divider />
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
     </Card>

@@ -77,7 +77,7 @@ export default function TransactionMenu(props: Props) {
         />
       )}
       {tx.length === 0 && props.token.averagePrice && (
-        <Typography variant="h6" gutterBottom textAlign="left">
+        <Typography variant="body1" gutterBottom paddingX="0" textAlign="center">
           {formatAverage(props.token.amount, props.token.averagePrice)}
         </Typography>
       )}
