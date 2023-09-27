@@ -11,6 +11,7 @@ type Props = {
   txAmount: string;
   setTxAmount: Function;
   handleSave: Function;
+  errorMessage: string;
 };
 
 export default function TransactionInput(props: Props) {
@@ -72,6 +73,9 @@ export default function TransactionInput(props: Props) {
           </Typography>
         )}
       </Box>
+      <Typography gutterBottom variant="body1" color="error">
+        {props.errorMessage}
+      </Typography>
     </Box>
   );
 }

@@ -15,16 +15,23 @@ export default function TransactionMenu(props: Props) {
   const [tx, setTx] = useState<string>("");
   const [tokenPrice, setTokenPrice] = useState<string>(props.token.usd || "");
   const [txAmount, setTxAmount] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   function handleClick(action: string) {
     setTokenPrice(props.token.usd || "");
     setTx(action);
+    setErrorMessage("");
   }
 
   function handleSave() {
     if (txAmount === "" || txAmount === "0") {
+      setErrorMessage("Amount needs to be greater than 0.");
+      return;
+    } else if (tx === "Sell" && txAmount > props.token.amount) {
+      setErrorMessage(`Amount sold (${txAmount}) has to be lower than amount bought (${props.token.amount}).`);
       return;
     }
+    setErrorMessage("");
     const transaction = txFormatting(txAmount, tokenPrice, tx);
     props.setSavedTokenList((savedTokenList: Token[]) => {
       const newSavedTokenList = savedTokenList.map((token) => {
@@ -74,6 +81,7 @@ export default function TransactionMenu(props: Props) {
           closeInput={() => setTx("")}
           txType={tx}
           token={props.token}
+          errorMessage={errorMessage}
         />
       )}
       {tx.length === 0 && props.token.averagePrice && (
