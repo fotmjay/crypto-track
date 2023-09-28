@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useState } from "react";
 
 type Props = {
@@ -7,7 +7,8 @@ type Props = {
 };
 
 export default function ImportList(props: Props) {
-  const [tooltip, setTooltip] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function importList() {
     navigator.clipboard
@@ -18,35 +19,53 @@ export default function ImportList(props: Props) {
           const decodedDataObject = JSON.parse(decodedString);
           localStorage.setItem("savedList", decodedString);
           props.setSavedTokenList(decodedDataObject);
-        } else {
-          tooltipTimer();
+          setOpenDialog(false);
         }
       })
       .catch((err) => {
         console.error(err);
-        tooltipTimer();
+        setErrorMessage("The import has failed.  Ensure you exported the list before trying again.");
       });
   }
-  function tooltipTimer() {
-    setTooltip(true);
-    setTimeout(() => setTooltip(false), 3000);
+
+  function confirmationDialog(toggle: boolean) {
+    setOpenDialog(toggle);
+    if (toggle === false) {
+      setErrorMessage("");
+    }
   }
+
+  const extraPadding = { paddingX: "15px" };
+
   return (
-    <Tooltip
-      PopperProps={{
-        disablePortal: true,
-      }}
-      onClose={() => setTooltip(false)}
-      open={tooltip}
-      disableFocusListener
-      disableHoverListener
-      disableTouchListener
-      title="Invalid data, please export it again."
-      placement="top-start"
-    >
-      <Button size="small" variant="outlined" onClick={importList}>
+    <div>
+      <Button size="small" variant="outlined" onClick={() => confirmationDialog(true)}>
         {props.mediaSmall ? "IMPORT" : "IMPORT LIST"}
       </Button>
-    </Tooltip>
+      <Dialog sx={{ maxWidth: "450px", marginX: "auto" }} open={openDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title"></DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ ...extraPadding }} id="alert-dialog-description" gutterBottom>
+            Importing a list will overwrite your current holdings and transactions.
+          </DialogContentText>
+          <DialogContentText sx={{ ...extraPadding }} id="alert-dialog-description">
+            Are you sure?
+          </DialogContentText>
+          {errorMessage && (
+            <DialogContentText sx={{ ...extraPadding }} color="red" id="alert-dialog-description">
+              {errorMessage}
+            </DialogContentText>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => confirmationDialog(false)}>Cancel</Button>
+          {!errorMessage && (
+            <Button onClick={importList} autoFocus>
+              Confirm
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
