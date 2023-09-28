@@ -51,7 +51,6 @@ export default function TokenList(props: Props) {
         <TableRows firstElementClick={openModal} namedProperties={tableConfig.mainTableCategories.apiRelated} dataList={props.savedTokenList} />
       </Table>
       {tokenForModal ? <TransactionModal setSavedTokenList={props.setSavedTokenList} token={tokenForModal} closeModal={closeModal} /> : ""}
-      <ExportList />
     </TableContainer>
   );
 }

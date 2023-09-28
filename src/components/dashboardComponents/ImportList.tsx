@@ -1,21 +1,22 @@
-import { Button, Tooltip, useMediaQuery } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useState } from "react";
 
 type Props = {
   mediaSmall: boolean;
 };
 
-export default function ExportList(props: Props) {
+export default function ImportList(props: Props) {
   const [tooltip, setTooltip] = useState(false);
 
-  function generateSavedListLink() {
-    const data = localStorage.getItem("savedList");
-    if (data) {
-      const encoded = btoa(data);
-      navigator.clipboard.writeText(encoded);
-      tooltipTimer();
-    } else {
-    }
+  function importList() {
+    navigator.clipboard.readText().then((data) => {
+      const decoded = atob(data);
+      if (decoded) {
+        console.log(decoded);
+      } else {
+        tooltipTimer;
+      }
+    });
   }
   function tooltipTimer() {
     setTooltip(true);
@@ -31,11 +32,11 @@ export default function ExportList(props: Props) {
       disableFocusListener
       disableHoverListener
       disableTouchListener
-      title="Copied to clipboard."
+      title="Data string invalid."
       placement="top-start"
     >
-      <Button size="small" variant="outlined" onClick={generateSavedListLink}>
-        {props.mediaSmall ? "EXPORT" : "EXPORT LIST"}
+      <Button size="small" variant="outlined" onClick={importList}>
+        {props.mediaSmall ? "IMPORT" : "IMPORT LIST"}
       </Button>
     </Tooltip>
   );

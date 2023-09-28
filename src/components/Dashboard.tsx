@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 
 // Types
 import type { CoinGecko, Token } from "../shared/types/types";
-import ExportList from "./dashboardComponents/ExportList";
+import ImportExportData from "./dashboardComponents/ImportExportData";
 
 // Types definition
 type Props = {
@@ -121,7 +121,7 @@ export default function Dashboard(props: Props) {
       )}
       <Divider />
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
-      <ExportList />
+      <ImportExportData />
     </Card>
   );
 }
