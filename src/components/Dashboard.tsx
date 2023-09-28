@@ -121,7 +121,7 @@ export default function Dashboard(props: Props) {
       )}
       <Divider />
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
-      <ImportExportData />
+      <ImportExportData setSavedTokenList={setSavedTokenList} />
     </Card>
   );
 }
