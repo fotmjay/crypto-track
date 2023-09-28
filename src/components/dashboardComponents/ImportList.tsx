@@ -15,11 +15,14 @@ export default function ImportList(props: Props) {
       .readText()
       .then((data) => {
         const decodedString = atob(data);
-        const decodedDataObject = JSON.parse(decodedString);
         if (decodedString) {
+          const decodedDataObject = JSON.parse(decodedString);
           localStorage.setItem("savedList", decodedString);
           props.setSavedTokenList(decodedDataObject);
+        } else {
+          throw new Error("Imported data was empty.");
         }
+        setOpenDialog(false);
       })
       .catch((err) => {
         console.error(err);
