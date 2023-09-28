@@ -1,4 +1,4 @@
-import { Button, Tooltip, useMediaQuery } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useState } from "react";
 
 type Props = {

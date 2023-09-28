@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 // Types
 import type { Token } from "../../shared/types/types";
 import TransactionModal from "./TransactionComponent/TransactionModal";
-import ExportList from "./ExportList";
 
 // Type definition
 type Props = {
