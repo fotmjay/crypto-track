@@ -1,6 +1,6 @@
 # Crypto Tracker
 
-Crypto Tracker is a web application designed to track user-chosen crypto prices and transactions.  It is meant as a replacement to other wallets/trackers that store data about the user habits, holdings or transactions.  Everything in Crypto Tracker is stored in the user's browser (restitution from file to be added).
+Crypto Tracker is a web application designed to track user-chosen crypto prices and transactions. It is meant as a replacement to other wallets/trackers that store data about the user habits, holdings or transactions. Everything in Crypto Tracker is stored in the user's browser (restitution from file to be added).
 
 Crypto Tracker is made essentially as a 1-page-app using React, TypeScript and Material-UI.
 
@@ -49,6 +49,7 @@ npm run dev
 Visit http://localhost:5173 in your web browser (or whichever port Vite gives you in your terminal).
 
 ## App Features
+
 **Full token list search bar**
 
 The search bar uses latest data from CoinGecko to allow you to pick the exact cryptocurrency you want to track.
@@ -59,37 +60,52 @@ Easily add the chosen cryptocurrency to your tracked list.
 
 **Data update**
 
-Data about market cap, price and 24h % change provided by CoinGecko is updated automatically on page refresh or on button use. 
+Data about market cap, price and 24h % change provided by CoinGecko is updated automatically on page refresh or on button use.
 
-## Planned Enhancements
 **Buy/Sell tracker**
 
-Click buy or sell on the app to enter the amount transacted.  While lacking a bit of precision due to not fetching the price directly from the transaction itself, it allows for quick and efficient approximation of average prices (and doesn't require the user to manually enter prices).
+Click buy or sell on the app to enter the amount transacted. While lacking a bit of precision due to not fetching the price directly from the transaction itself, it allows for quick and efficient approximation of average prices (and doesn't require the user to manually enter prices).
+
+**Export and import data**
+
+Easily export your current list of tokens and transactions to import it back in another browser through a copied string.
+
+## Planned Enhancements
+
+**Buy/Sell tracker**
+Done.
 
 **Total wallet calculator**
+Done.
 
-Data related to total wallet value, transaction as well as show/hide amount available.
+**Allow to choose specific data**
+Allow the user to decide what metrics they are interested in, and show those on the data table.
+
+**Add list import from file**
+
+Add the possibility to back up the data in a saved file and restore data from that file.
 
 ## Difficulties encountered
 
 **API Limitations**
 
-Due to using the CoinGecko free plan API, there are limits in place on the amount of requests made.  Fetching the data efficiently to allow for good user experience but without going over the limits needed some thought.
+Due to using the CoinGecko free plan API, there are limits in place on the amount of requests made. Fetching the data efficiently to allow for good user experience but without going over the limits needed some thought.
 
 **Learning multiple new technologies**
 
-I had never used TypeScript nor MaterialUI before this project.  Having to balance learning both at the same time made it more difficult due to lacking knowledge on one or the other would often lead to "both" not working and fixing one would sometimes break the other.
+I had never used TypeScript nor MaterialUI before this project. Having to balance learning both at the same time made it more difficult due to lacking knowledge on one or the other would often lead to "both" not working and fixing one would sometimes break the other.
 
 ## What I Learned
+
 During the development of Crypto Tracker, I acquired valuable knowledge and experience in various areas:
 
 **TypeScript**
 
-First time using TypeScript so adaptation was of the essence.  Had to read a lot of documentation to get through the initial hump.
+First time using TypeScript so adaptation was of the essence. Had to read a lot of documentation to get through the initial hump.
 
 **MaterialUI**
 
-First time using MUI.  Lots of documentation was read here too, aswell as multiple guides and examples.
+First time using MUI. Lots of documentation was read here too, aswell as multiple guides and examples.
 
 **Mobile-first UI approach**
 
