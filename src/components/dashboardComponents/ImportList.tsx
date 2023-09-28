@@ -15,16 +15,15 @@ export default function ImportList(props: Props) {
       .readText()
       .then((data) => {
         const decodedString = atob(data);
+        const decodedDataObject = JSON.parse(decodedString);
         if (decodedString) {
-          const decodedDataObject = JSON.parse(decodedString);
           localStorage.setItem("savedList", decodedString);
           props.setSavedTokenList(decodedDataObject);
-          setOpenDialog(false);
         }
       })
       .catch((err) => {
         console.error(err);
-        setErrorMessage("The import has failed.  Ensure you exported the list before trying again.");
+        setErrorMessage("The import has failed.  Ensure you export the list before trying again.");
       });
   }
 
