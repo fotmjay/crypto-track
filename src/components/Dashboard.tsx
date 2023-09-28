@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 
 // Types
 import type { CoinGecko, Token } from "../shared/types/types";
+import ExportList from "./dashboardComponents/ExportList";
 
 // Types definition
 type Props = {
@@ -105,7 +106,7 @@ export default function Dashboard(props: Props) {
   }
 
   return (
-    <Card variant="outlined">
+    <Card sx={{ position: "relative", overflow: "visible" }} variant="outlined">
       <Container sx={{ display: "flex", justifyContent: "center", alignContent: "center", padding: "20px" }}>
         <TokenAdd addToken={addToken} fullTokenList={props.fullTokenList} savedTokenList={savedTokenList} />
         <Button sx={{ marginLeft: "10px" }} variant="contained" size="small" onClick={savedTokensPriceFetch}>
@@ -120,6 +121,7 @@ export default function Dashboard(props: Props) {
       )}
       <Divider />
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
+      <ExportList />
     </Card>
   );
 }

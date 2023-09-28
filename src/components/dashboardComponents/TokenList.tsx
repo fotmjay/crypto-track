@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 // Types
 import type { Token } from "../../shared/types/types";
 import TransactionModal from "./TransactionComponent/TransactionModal";
+import ExportList from "./ExportList";
 
 // Type definition
 type Props = {
@@ -50,6 +51,7 @@ export default function TokenList(props: Props) {
         <TableRows firstElementClick={openModal} namedProperties={tableConfig.mainTableCategories.apiRelated} dataList={props.savedTokenList} />
       </Table>
       {tokenForModal ? <TransactionModal setSavedTokenList={props.setSavedTokenList} token={tokenForModal} closeModal={closeModal} /> : ""}
+      <ExportList />
     </TableContainer>
   );
 }
