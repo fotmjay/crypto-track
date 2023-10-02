@@ -12,7 +12,6 @@ import { lsGet, lsSet } from "./helpers/localStorageHelper";
 
 // ICONS
 
-import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 // REACT & MATERIAL IMPORTS
@@ -100,7 +99,7 @@ export default function App() {
           </Button>
           <Box sx={{ display: "flex", position: "absolute", left: "0", alignItems: "center" }}>
             <Switch onClick={switchTheme} checked={darkMode}></Switch>
-            {darkMode ? <LightModeTwoToneIcon /> : <DarkModeIcon />}
+            <DarkModeIcon />
           </Box>
         </Box>
         {errorMessage ? (
