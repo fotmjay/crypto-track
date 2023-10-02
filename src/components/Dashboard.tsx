@@ -17,6 +17,10 @@ import { largeNumberFormat, dailyChangeFormat, smallNumberFormat } from "../help
 import { Card, Divider, Container, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
+// Icons
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 // Types
 import type { CoinGecko, Token } from "../shared/types/types";
 import ImportExportData from "./dashboardComponents/ImportExportData";
@@ -115,8 +119,10 @@ export default function Dashboard(props: Props) {
       </Container>
       <Divider />
       {savedTokenList.length > 0 && (
-        <Typography padding="12px" align="center" variant="h4" onClick={toggleWalletTotal}>
-          {hideAmount ? "******" : value.toFixed(0)}$
+        <Typography padding="12px" align="center" variant="h4">
+          {hideAmount ? "******" : `${value.toFixed(0)}$`}
+
+          <VisibilityIcon onClick={toggleWalletTotal} sx={{ marginLeft: "15px" }} fontSize="medium" />
         </Typography>
       )}
       <Divider />
