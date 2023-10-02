@@ -16,7 +16,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 // REACT & MATERIAL IMPORTS
 import { useEffect, useState } from "react";
-import { Box, Button, Container, Typography, Switch } from "@mui/material";
+import { Box, Container, Typography, Switch } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -65,6 +65,7 @@ export default function App() {
         })
         .catch((err) => {
           setErrorMessage("Failed to receive data from CoinGecko.");
+          localStorage.removeItem("fullTokenListUpdatedAt");
           console.error(err);
         });
     }
