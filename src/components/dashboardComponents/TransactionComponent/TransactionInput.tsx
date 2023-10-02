@@ -42,6 +42,7 @@ export default function TransactionInput(props: Props) {
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
       <Box marginX={mediaSmall ? "auto" : "inherit"}>
         <TextField
+          autoFocus={true}
           sx={{ paddingBottom: "10px" }}
           color={props.txType === "Buy" ? "success" : "error"}
           label={props.txType}
@@ -57,21 +58,15 @@ export default function TransactionInput(props: Props) {
         <Button size="small" onClick={() => props.closeInput()}>
           CLOSE
         </Button>
-        {togglePriceTextField ? (
-          <TextField
-            size="small"
-            autoFocus={true}
-            inputProps={{ sx: { width: inputSize, padding: "6px" } }}
-            value={props.tokenPrice}
-            onBlur={modifyPrice}
-            onKeyDown={handleKeyDown}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
-          />
-        ) : (
-          <Typography onClick={modifyPrice} variant="caption" fontSize="0.8125rem" px="8px" lineHeight="1.75">
-            ${props.tokenPrice}
-          </Typography>
-        )}
+
+        <TextField
+          size="small"
+          inputProps={{ sx: { width: inputSize, padding: "6px" } }}
+          value={props.tokenPrice}
+          onBlur={modifyPrice}
+          onKeyDown={handleKeyDown}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
+        />
       </Box>
       <Typography gutterBottom variant="body1" color="error">
         {props.errorMessage}
