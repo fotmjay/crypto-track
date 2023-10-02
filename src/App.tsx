@@ -94,9 +94,6 @@ export default function App() {
           >
             CryptoTracker
           </Typography>
-          <Button sx={{ position: "absolute", right: "0" }} size="small" onClick={fetchList} variant="contained">
-            Update Token List
-          </Button>
           <Box sx={{ display: "flex", position: "absolute", left: "0", alignItems: "center" }}>
             <Switch onClick={switchTheme} checked={darkMode}></Switch>
             <DarkModeIcon />
