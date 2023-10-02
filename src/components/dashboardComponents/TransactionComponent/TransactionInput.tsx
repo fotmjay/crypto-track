@@ -1,5 +1,4 @@
 import { Box, Button, TextField, Typography, useMediaQuery } from "@mui/material";
-import { useState } from "react";
 import { Token } from "../../../shared/types/types";
 
 type Props = {
@@ -15,8 +14,6 @@ type Props = {
 };
 
 export default function TransactionInput(props: Props) {
-  const [togglePriceTextField, setTogglePriceTextField] = useState<boolean>(false);
-
   const mediaSmall = useMediaQuery("(max-width:550px)");
   // Work around to make the TextField the size of the text in it.
   const inputSize = `${props.tokenPrice.length * 11}px`;
@@ -26,16 +23,6 @@ export default function TransactionInput(props: Props) {
     if (/^[+-]?((\.\d+)|(\d+(\.\d+)?)|(\d+\.))$/.test(event.target.value) || event.target.value === "") {
       stateChange(event.target.value);
     }
-  }
-
-  function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.keyCode === 13) {
-      modifyPrice();
-    }
-  }
-
-  function modifyPrice() {
-    setTogglePriceTextField((toggle) => !toggle);
   }
 
   return (
@@ -63,8 +50,6 @@ export default function TransactionInput(props: Props) {
           size="small"
           inputProps={{ sx: { width: inputSize, padding: "6px" } }}
           value={props.tokenPrice}
-          onBlur={modifyPrice}
-          onKeyDown={handleKeyDown}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
         />
       </Box>
