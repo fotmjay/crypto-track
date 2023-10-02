@@ -10,6 +10,8 @@ const smallNumberFormat = (number: number) => {
     return number.toFixed(4);
   } else if (num < 100) {
     return number.toFixed(2);
+  } else if (num === 0 || isNaN(number)) {
+    return "N/A";
   } else {
     return Math.floor(number).toString();
   }
@@ -22,7 +24,7 @@ const largeNumberFormat = (number: number) => {
     return `${(number / 1000000).toFixed()} M`;
   } else if (number > 999) {
     return `${(number / 1000).toFixed()} K`;
-  } else if (number === 0) {
+  } else if (number === 0 || isNaN(number)) {
     return "N/A";
   } else {
     return number.toString();
