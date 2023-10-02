@@ -37,6 +37,13 @@ export default function TransactionInput(props: Props) {
           value={props.txAmount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTxAmount)}
         />
+        <TextField
+          size="small"
+          sx={{ paddingBottom: "10px" }}
+          inputProps={{ sx: { width: inputSize, paddingX: "6px" } }}
+          value={props.tokenPrice}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
+        />
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "10px" }}>
         <Button size="small" onClick={() => props.handleSave()}>
@@ -45,13 +52,6 @@ export default function TransactionInput(props: Props) {
         <Button size="small" onClick={() => props.closeInput()}>
           CLOSE
         </Button>
-
-        <TextField
-          size="small"
-          inputProps={{ sx: { width: inputSize, padding: "6px" } }}
-          value={props.tokenPrice}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
-        />
       </Box>
       <Typography gutterBottom variant="body1" color="error">
         {props.errorMessage}
