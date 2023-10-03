@@ -35,7 +35,7 @@ export default function ExportList(props: Props) {
       placement="top-start"
     >
       <Button size="small" variant="outlined" onClick={generateSavedListLink}>
-        {props.mediaSmall ? "EXPORT" : "EXPORT LIST"}
+        {props.mediaSmall ? "COPY" : "COPY WALLET"}
       </Button>
     </Tooltip>
   );

@@ -42,7 +42,7 @@ export default function ImportList(props: Props) {
   return (
     <div>
       <Button size="small" variant="outlined" onClick={() => confirmationDialog(true)}>
-        {props.mediaSmall ? "IMPORT" : "IMPORT LIST"}
+        {props.mediaSmall ? "PASTE" : "PASTE WALLET"}
       </Button>
       <Dialog sx={{ maxWidth: "450px", marginX: "auto" }} open={openDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title"></DialogTitle>
