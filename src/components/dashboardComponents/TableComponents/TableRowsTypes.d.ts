@@ -12,6 +12,8 @@ type Props = {
   dataList: any;
   namedProperties: string[];
   firstElementClick?: Function;
+  draggable?: boolean;
+  setDataList?: React.Dispatch<React.SetStateAction<Object[] & Token[]>>;
 };
 
 export type { Rows, Props };

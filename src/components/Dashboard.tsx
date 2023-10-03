@@ -118,10 +118,10 @@ export default function Dashboard(props: Props) {
         </Button>
       </Container>
       <Divider />
+
       {savedTokenList.length > 0 && (
         <Typography padding="12px" align="center" variant="h4">
           {hideAmount ? "******" : `${value.toFixed(0)}$`}
-
           <VisibilityIcon onClick={toggleWalletTotal} sx={{ marginLeft: "15px" }} fontSize="medium" />
         </Typography>
       )}

@@ -30,6 +30,7 @@ export default function CellsForTable(props: Props) {
     default:
       break;
   }
+
   return (
     <TableCell sx={{ cursor: cursorType, color: fontColor }} align={alignment} onClick={props.firstElementClick}>
       {numbersPropertiesToFormat.includes(props.property)
