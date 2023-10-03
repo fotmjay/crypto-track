@@ -1,4 +1,4 @@
-import { Token, Transaction } from "../../../shared/types/types";
+import { Token } from "../../../shared/types/types";
 
 type Rows = {
   token: Token;

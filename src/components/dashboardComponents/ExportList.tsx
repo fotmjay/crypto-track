@@ -14,7 +14,6 @@ export default function ExportList(props: Props) {
       const encoded = btoa(data);
       navigator.clipboard.writeText(encoded);
       tooltipTimer();
-    } else {
     }
   }
   function tooltipTimer() {
