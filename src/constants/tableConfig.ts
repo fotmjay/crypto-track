@@ -9,4 +9,9 @@ export const tableConfig = Object.freeze({
     small: ["Date", "Tx", "Qty", "Price", "Total"],
     apiRelated: ["txDate", "action", "amount", "price", "total"],
   },
+  walletTotalCategories: {
+    large: ["Coin", "Amount", "Average", "Paid", "Total USD"],
+    small: ["Coin", "Qty", "Avg", "Paid", "Total"],
+    apiRelated: ["name", "amount", "averagePrice", "paid", "total"],
+  },
 });

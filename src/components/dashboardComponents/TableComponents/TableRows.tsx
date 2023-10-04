@@ -81,6 +81,7 @@ export default function TableRows(props: Props) {
     <TableBody ref={tableBodyReference}>
       {props.dataList.map((data: any, index: number) => (
         <Row
+          color={data.color || ""}
           key={data.id || data.txDate}
           index={index}
           firstElementClick={props.firstElementClick}
