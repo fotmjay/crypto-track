@@ -8,6 +8,7 @@ type Props = {
   dataFromList: any;
   firstElementClick?: MouseEventHandler<HTMLTableCellElement>;
   property: string;
+  color: string;
 };
 
 export default function CellsForTable(props: Props) {
@@ -29,6 +30,9 @@ export default function CellsForTable(props: Props) {
       break;
     default:
       break;
+  }
+  if (props.color) {
+    fontColor = props.color;
   }
 
   return (

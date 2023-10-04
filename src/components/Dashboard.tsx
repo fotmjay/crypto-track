@@ -20,10 +20,12 @@ import { useEffect, useState } from "react";
 // Icons
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 // Types
 import type { CoinGecko, Token } from "../shared/types/types";
 import ImportExportData from "./dashboardComponents/ImportExportData";
+import FullWalletModal from "./dashboardComponents/FullWalletModal";
 
 // Types definition
 type Props = {
@@ -49,7 +51,8 @@ function createTokenModel(token: Partial<Token>): Token {
 
 export default function Dashboard(props: Props) {
   const [savedTokenList, setSavedTokenList] = useState<Token[]>(lsGet.list("savedList"));
-  const [hideAmount, setHideAmount] = useState<boolean>(localStorage.getItem("hideWalletAmount") === "true" || false);
+  const [hideAmount, setHideAmount] = useState(localStorage.getItem("hideWalletAmount") === "true" || false);
+  const [fullWalletModal, setFullWalletModal] = useState(false);
 
   useEffect(() => {
     if (rateLimiting() === true) {
@@ -123,9 +126,11 @@ export default function Dashboard(props: Props) {
         <Typography padding="12px" align="center" variant="h4">
           {hideAmount ? "******" : `${value.toFixed(0)}$`}
           <VisibilityIcon onClick={toggleWalletTotal} sx={{ marginLeft: "15px" }} fontSize="medium" />
+          <AccountBalanceWalletIcon sx={{ marginLeft: "15px" }} onClick={() => setFullWalletModal(true)} />
         </Typography>
       )}
       <Divider />
+      {fullWalletModal && <FullWalletModal savedTokenList={savedTokenList} open={fullWalletModal} closeModal={() => setFullWalletModal(false)} />}
       <TokenList setSavedTokenList={setSavedTokenList} savedTokenList={savedTokenList} />
       <ImportExportData setSavedTokenList={setSavedTokenList} />
     </Card>

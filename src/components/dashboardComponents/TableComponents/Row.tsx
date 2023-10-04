@@ -10,6 +10,7 @@ type Props = {
   handleDragStart?: (event: React.DragEvent, position: number) => void;
   handleDragEnter?: (event: React.DragEvent, position: number, id: string) => void;
   handleDragEnd?: (event: React.DragEvent) => void;
+  color: string;
   index: number;
   namedProperties: string[];
 };
@@ -53,6 +54,7 @@ export default function Row(props: Props) {
     >
       {props.namedProperties.map((property, i) => (
         <CellsForTable
+          color={props.color}
           firstElementClick={i === 0 && props.firstElementClick ? handleClick : undefined}
           key={property}
           property={property}
