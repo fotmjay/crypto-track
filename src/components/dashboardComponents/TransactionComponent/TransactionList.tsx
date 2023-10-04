@@ -12,6 +12,8 @@ type Props = {
   setSavedTokenList: Function;
 };
 
+const confirmationMessage = "You are about to delete a transaction.";
+
 export default function TransactionList(props: Props) {
   const [openDialog, setOpenDialog] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
@@ -59,7 +61,12 @@ export default function TransactionList(props: Props) {
           namedProperties={tableConfig.txDataTableCategories.apiRelated}
           dataList={props.token.transactionList}
         />
-        <ConfirmationModalDialog isDialogOpen={openDialog} actionOnConfirm={removeTransactionFromList} closeDialog={() => setOpenDialog(false)} />
+        <ConfirmationModalDialog
+          confirmationMessage={confirmationMessage}
+          isDialogOpen={openDialog}
+          actionOnConfirm={removeTransactionFromList}
+          closeDialog={() => setOpenDialog(false)}
+        />
       </Table>
     </TableContainer>
   );

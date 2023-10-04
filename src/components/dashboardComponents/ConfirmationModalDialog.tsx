@@ -4,6 +4,7 @@ type Props = {
   specificStyle?: { paddingX: string };
   isDialogOpen: boolean;
   errorMessage?: string;
+  confirmationMessage: string;
   actionOnConfirm: (() => void) & ((e: React.MouseEvent, txindex: number) => void);
   closeDialog: () => void;
 };
@@ -19,7 +20,7 @@ export default function ConfirmationModalDialog(props: Props) {
       <DialogTitle id="alert-dialog-title"></DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ ...props.specificStyle }} id="alert-dialog-description" gutterBottom>
-          Importing a list will overwrite your current holdings and transactions.
+          {props.confirmationMessage}
         </DialogContentText>
         <DialogContentText sx={{ ...props.specificStyle }} id="alert-dialog-description">
           Are you sure?
