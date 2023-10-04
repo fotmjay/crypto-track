@@ -3,7 +3,7 @@ import { Token } from "../../../shared/types/types";
 import TransactionInput from "./TransactionInput";
 import { useState } from "react";
 import txFormatting from "../../../helpers/txFormatting";
-import calculateAveragePriceAndTotalAmount from "../../../helpers/calculateAverage";
+import recalculateAverage from "../../../helpers/calculateAverage";
 import { smallNumberFormat } from "../../../helpers/numberFormatting";
 
 type Props = {
@@ -37,10 +37,10 @@ export default function TransactionMenu(props: Props) {
       const newSavedTokenList = savedTokenList.map((token) => {
         let newToken = { ...token };
         if (newToken.id === props.token.id) {
-          const updatedData = calculateAveragePriceAndTotalAmount(newToken.averagePrice, newToken.amount, tokenPrice, txAmount, tx);
+          newToken.transactionList.push(transaction);
+          const updatedData = recalculateAverage(newToken.transactionList);
           newToken.amount = updatedData.amount;
           newToken.averagePrice = updatedData.averagePrice;
-          newToken.transactionList.push(transaction);
         }
         return newToken;
       });
@@ -54,7 +54,7 @@ export default function TransactionMenu(props: Props) {
   function formatAverage(amount: string, average: string) {
     if (parseFloat(amount) === 0) {
       const avg = parseInt(average, 10);
-      return `Current ${avg > 0 ? "loss" : "profit"}: ${Math.abs(avg)}$`;
+      return `Current ${avg > 0 ? "loss" : "profit"}: ${Math.abs(avg) || 0}$`;
     } else {
       return `${smallNumberFormat(parseFloat(amount))} @ $${smallNumberFormat(parseFloat(average))} — ${(+amount * +average).toFixed(2)}$`;
     }
@@ -86,9 +86,7 @@ export default function TransactionMenu(props: Props) {
       )}
       {tx.length === 0 && props.token.averagePrice && (
         <Typography variant="body2" gutterBottom paddingX="0" textAlign="center">
-          {typeof formatAverage(props.token.amount, props.token.averagePrice) === "string"
-            ? formatAverage(props.token.amount, props.token.averagePrice)
-            : formatAverage(props.token.amount, props.token.averagePrice)[0]}
+          {formatAverage(props.token.amount, props.token.averagePrice)}
         </Typography>
       )}
     </Container>

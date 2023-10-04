@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Modal, Typography, useMediaQuery } from "@mui/material";
-import type { Token, Transaction } from "../../../shared/types/types";
+import type { Token } from "../../../shared/types/types";
 import TransactionMenu from "./TransactionMenu";
 import TransactionList from "./TransactionList";
 import { useState } from "react";
@@ -28,30 +28,6 @@ export default function TransactionModal(props: Props) {
     p: 4,
   };
 
-  function recalculateAverage() {
-    const averageAndAmounts: { amount: number; total: number } = { amount: 0, total: 0 };
-    props.token.transactionList.forEach((tx: Transaction) => {
-      if (tx.action === "Buy") {
-        averageAndAmounts.amount += +tx.amount;
-        averageAndAmounts.total += +tx.amount * +tx.price;
-      } else {
-        averageAndAmounts.amount -= +tx.amount;
-        averageAndAmounts.total -= +tx.amount * +tx.price;
-      }
-    });
-    props.setSavedTokenList((oldList: Token[]) => {
-      const newList = oldList.map((token: Token) => {
-        if (token.id === props.token.id) {
-          token.averagePrice = (averageAndAmounts.total / averageAndAmounts.amount).toString();
-          token.amount = averageAndAmounts.amount.toString();
-        }
-        return token;
-      });
-      localStorage.setItem("savedList", JSON.stringify(newList));
-      return newList;
-    });
-  }
-
   return (
     <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
@@ -65,7 +41,6 @@ export default function TransactionModal(props: Props) {
           ) : (
             <Button onClick={() => setDeleteConfirmation(true)}>Delete</Button>
           )}
-          <Button onClick={recalculateAverage}>ReCalc Average</Button>
         </Box>
         <Divider sx={{ marginBottom: "8px" }} />
         <TransactionMenu setSavedTokenList={props.setSavedTokenList} token={props.token} />

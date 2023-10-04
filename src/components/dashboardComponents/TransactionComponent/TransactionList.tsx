@@ -5,7 +5,7 @@ import TableTitles from "../TableComponents/TableTitles";
 import { Token, Transaction } from "../../../shared/types/types";
 import { useState } from "react";
 import ConfirmationModalDialog from "../ConfirmationModalDialog";
-import calculateAveragePriceAndTotalAmount from "../../../helpers/calculateAverage";
+import recalculateAverage from "../../../helpers/calculateAverage";
 
 type Props = {
   token: Token;
@@ -30,15 +30,9 @@ export default function TransactionList(props: Props) {
           newToken.transactionList = newToken.transactionList.filter((tx: Transaction) => {
             return tx.txDate !== transactionToDelete.txDate || tx.amount !== transactionToDelete.amount;
           });
-          const newAmounts = resetAverageAndTotalPrice(
-            props.token.averagePrice,
-            props.token.amount,
-            transactionToDelete.price,
-            transactionToDelete.amount,
-            transactionToDelete.action === "Buy" ? "Sell" : "Buy"
-          );
-          newToken.averagePrice = 0 + newAmounts.averagePrice;
-          newToken.amount = 0 + newAmounts.amount;
+          const newAmounts = recalculateAverage(newToken.transactionList);
+          newToken.averagePrice = newAmounts.averagePrice;
+          newToken.amount = newAmounts.amount;
           newList.push(newToken);
         }
       });
@@ -47,10 +41,6 @@ export default function TransactionList(props: Props) {
     });
     setOpenDialog(false);
     setTransactionToDelete(undefined);
-  }
-
-  function resetAverageAndTotalPrice(prevAverage: string, prevAmount: string, price: string, amount: string, action: string) {
-    return calculateAveragePriceAndTotalAmount(prevAverage, prevAmount, price, amount, action);
   }
 
   function openModalForDeleteConfirmation(tx: Transaction) {
