@@ -43,7 +43,7 @@ export default function FullWalletModal(props: Props) {
         totalValue.current! += +updatedToken.total;
         updatedToken.paid = (parseFloat(token.amount) * parseFloat(token.averagePrice)).toFixed(0);
         totalPaid.current! += +updatedToken.paid;
-        updatedToken.color = updatedToken.paid > updatedToken.total ? "red" : "lightgreen";
+        updatedToken.color = parseInt(updatedToken.paid, 10) > parseInt(updatedToken.total, 10) ? "red" : "lightgreen";
         filteredListWithTotals.push(updatedToken);
       }
     });
