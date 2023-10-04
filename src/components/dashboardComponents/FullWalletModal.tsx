@@ -54,7 +54,7 @@ export default function FullWalletModal(props: Props) {
   const positiveReturns = totalPaid.current > totalValue.current;
   return (
     <Modal open={props.open} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-      <Box sx={style}>
+      <Box maxHeight="50vh" overflow="auto" sx={style}>
         <Typography gutterBottom variant="h4" textAlign="center">
           Wallet details
         </Typography>
