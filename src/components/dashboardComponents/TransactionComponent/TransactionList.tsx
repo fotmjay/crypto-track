@@ -1,5 +1,5 @@
 import TableRows from "../TableComponents/TableRows";
-import { TableContainer, Paper, Table, TableHead } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, Box } from "@mui/material";
 import { tableConfig } from "../../../constants/tableConfig";
 import TableTitles from "../TableComponents/TableTitles";
 import { Token, Transaction } from "../../../shared/types/types";
@@ -51,23 +51,25 @@ export default function TransactionList(props: Props) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table align="center" size="small" aria-label="simple table">
-        <TableHead>
-          <TableTitles categories={tableConfig.txDataTableCategories} />
-        </TableHead>
-        <TableRows
-          firstElementClick={openModalForDeleteConfirmation}
-          namedProperties={tableConfig.txDataTableCategories.apiRelated}
-          dataList={props.token.transactionList}
-        />
-        <ConfirmationModalDialog
-          confirmationMessage={confirmationMessage}
-          isDialogOpen={openDialog}
-          actionOnConfirm={removeTransactionFromList}
-          closeDialog={() => setOpenDialog(false)}
-        />
-      </Table>
-    </TableContainer>
+    <Box maxHeight="50vh" overflow="auto">
+      <TableContainer component={Paper}>
+        <Table align="center" size="small" aria-label="simple table">
+          <TableHead>
+            <TableTitles categories={tableConfig.txDataTableCategories} />
+          </TableHead>
+          <TableRows
+            firstElementClick={openModalForDeleteConfirmation}
+            namedProperties={tableConfig.txDataTableCategories.apiRelated}
+            dataList={props.token.transactionList}
+          />
+          <ConfirmationModalDialog
+            confirmationMessage={confirmationMessage}
+            isDialogOpen={openDialog}
+            actionOnConfirm={removeTransactionFromList}
+            closeDialog={() => setOpenDialog(false)}
+          />
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
