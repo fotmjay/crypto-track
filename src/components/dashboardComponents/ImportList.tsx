@@ -7,6 +7,8 @@ type Props = {
   setSavedTokenList: Function;
 };
 
+const confirmationMessage = "Importing a list will overwrite your current holdings and transactions.";
+
 export default function ImportList(props: Props) {
   const [openDialog, setOpenDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,6 +46,7 @@ export default function ImportList(props: Props) {
         {props.mediaSmall ? "PASTE" : "PASTE WALLET"}
       </Button>
       <ConfirmationModalDialog
+        confirmationMessage={confirmationMessage}
         specificStyle={specificStyle}
         isDialogOpen={openDialog}
         errorMessage={errorMessage}
