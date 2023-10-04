@@ -16,7 +16,8 @@ type Props = {
 export default function TransactionInput(props: Props) {
   const mediaSmall = useMediaQuery("(max-width:550px)");
   // Work around to make the TextField the size of the text in it.
-  const inputSize = `${props.tokenPrice.length * 11}px`;
+  // Keeping if responsiveness brings me to use it again
+  // const inputSize = `${props.tokenPrice.length * 11}px`;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>, stateChange: Function) {
     // VALIDATE ONLY FLOAT (1, 0.1, 1.2)
@@ -26,21 +27,24 @@ export default function TransactionInput(props: Props) {
   }
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
-      <Box marginX={mediaSmall ? "auto" : "inherit"}>
+    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
+      <Box maxWidth="225px" marginX={mediaSmall ? "auto" : "inherit"}>
         <TextField
           autoFocus={true}
           sx={{ paddingBottom: "10px" }}
           color={props.txType === "Buy" ? "success" : "error"}
           label={props.txType}
           size="small"
+          fullWidth
           value={props.txAmount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTxAmount)}
         />
         <TextField
           size="small"
           sx={{ paddingBottom: "10px" }}
-          inputProps={{ sx: { width: inputSize, paddingX: "6px" } }}
+          fullWidth
+          label="Price"
+          inputProps={{ sx: { paddingX: "6px" } }}
           value={props.tokenPrice}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, props.setTokenPrice)}
         />
