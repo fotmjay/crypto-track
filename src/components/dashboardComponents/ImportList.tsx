@@ -1,5 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
+import ConfirmationModalDialog from "./ConfirmationModalDialog";
 
 type Props = {
   mediaSmall: boolean;
@@ -30,44 +31,25 @@ export default function ImportList(props: Props) {
       });
   }
 
-  function confirmationDialog(toggle: boolean) {
-    setOpenDialog(toggle);
-    if (toggle === false) {
-      setErrorMessage("");
-    }
+  function confirmationDialog() {
+    setOpenDialog(false);
+    setErrorMessage("");
   }
 
-  const extraPadding = { paddingX: "15px" };
+  const specificStyle = { paddingX: "15px" };
 
   return (
     <div>
-      <Button size="small" variant="outlined" onClick={() => confirmationDialog(true)}>
+      <Button size="small" variant="outlined" onClick={() => setOpenDialog(true)}>
         {props.mediaSmall ? "PASTE" : "PASTE WALLET"}
       </Button>
-      <Dialog sx={{ maxWidth: "450px", marginX: "auto" }} open={openDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title"></DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ ...extraPadding }} id="alert-dialog-description" gutterBottom>
-            Importing a list will overwrite your current holdings and transactions.
-          </DialogContentText>
-          <DialogContentText sx={{ ...extraPadding }} id="alert-dialog-description">
-            Are you sure?
-          </DialogContentText>
-          {errorMessage && (
-            <DialogContentText sx={{ ...extraPadding }} color="red" id="alert-dialog-description">
-              {errorMessage}
-            </DialogContentText>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => confirmationDialog(false)}>Cancel</Button>
-          {!errorMessage && (
-            <Button onClick={importList} autoFocus>
-              Confirm
-            </Button>
-          )}
-        </DialogActions>
-      </Dialog>
+      <ConfirmationModalDialog
+        specificStyle={specificStyle}
+        isDialogOpen={openDialog}
+        errorMessage={errorMessage}
+        actionOnConfirm={importList}
+        closeDialog={confirmationDialog}
+      />
     </div>
   );
 }

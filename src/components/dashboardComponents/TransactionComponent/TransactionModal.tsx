@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Divider, Modal, Typography, useMediaQuery } from "@mui/material";
 import type { Token } from "../../../shared/types/types";
 import TransactionMenu from "./TransactionMenu";
 import TransactionList from "./TransactionList";
@@ -31,7 +31,7 @@ export default function TransactionModal(props: Props) {
   return (
     <Modal open={props.token !== null} onClose={() => props.closeModal()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
-        <Box display="flex" justifyContent="flex-start" alignItems="center">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           {deleteConfirmation ? (
             <SavedTokenDeleteConfirmation
               setDeleteConfirmation={setDeleteConfirmation}
@@ -42,8 +42,13 @@ export default function TransactionModal(props: Props) {
             <Button onClick={() => setDeleteConfirmation(true)}>Delete</Button>
           )}
         </Box>
+        <Divider sx={{ marginBottom: "8px" }} />
         <TransactionMenu setSavedTokenList={props.setSavedTokenList} token={props.token} />
-        {props.token.transactionList.length > 0 ? <TransactionList token={props.token} /> : <Typography variant="body2">No transactions listed.</Typography>}
+        {props.token.transactionList.length > 0 ? (
+          <TransactionList setSavedTokenList={props.setSavedTokenList} token={props.token} />
+        ) : (
+          <Typography variant="body2">No transactions listed.</Typography>
+        )}
       </Box>
     </Modal>
   );
