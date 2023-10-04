@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Divider, Modal, Typography, useMediaQuery } from "@mui/material";
 import type { Token, Transaction } from "../../../shared/types/types";
 import TransactionMenu from "./TransactionMenu";
 import TransactionList from "./TransactionList";
@@ -67,6 +67,7 @@ export default function TransactionModal(props: Props) {
           )}
           <Button onClick={recalculateAverage}>ReCalc Average</Button>
         </Box>
+        <Divider sx={{ marginBottom: "8px" }} />
         <TransactionMenu setSavedTokenList={props.setSavedTokenList} token={props.token} />
         {props.token.transactionList.length > 0 ? (
           <TransactionList setSavedTokenList={props.setSavedTokenList} token={props.token} />
