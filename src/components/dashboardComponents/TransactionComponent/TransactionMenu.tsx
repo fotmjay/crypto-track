@@ -27,7 +27,7 @@ export default function TransactionMenu(props: Props) {
     if (txAmount === "" || txAmount === "0") {
       setErrorMessage("Amount needs to be greater than 0.");
       return;
-    } else if (tx === "Sell" && txAmount > props.token.amount) {
+    } else if (tx === "Sell" && parseFloat(txAmount) > parseFloat(props.token.amount)) {
       setErrorMessage(`Amount sold (${txAmount}) has to be lower than amount bought (${props.token.amount}).`);
       return;
     }
