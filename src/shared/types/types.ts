@@ -8,6 +8,7 @@ type Token = {
   averagePrice: string;
   amount: string;
   transactionList: Transaction[];
+  total?: string;
 };
 
 type Transaction = {

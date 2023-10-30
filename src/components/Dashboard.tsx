@@ -15,7 +15,7 @@ import { largeNumberFormat, dailyChangeFormat, smallNumberFormat } from "../help
 
 // React and Mui
 import { Card, Divider, Container, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 // Icons
 
@@ -30,7 +30,7 @@ import FullWalletModal from "./dashboardComponents/FullWalletModal";
 // Types definition
 type Props = {
   fullTokenList: Token[];
-  setErrorMessage: Function;
+  setErrorMessage: React.Dispatch<SetStateAction<string>>;
 };
 
 // Main
@@ -58,6 +58,7 @@ export default function Dashboard(props: Props) {
     if (rateLimiting() === true) {
       savedTokensPriceFetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function rateLimiting() {

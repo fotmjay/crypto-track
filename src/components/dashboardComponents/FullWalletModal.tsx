@@ -20,7 +20,7 @@ export default function FullWalletModal(props: Props) {
   const totalValue = useRef<number>(0);
 
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute" as const,
     top: "40%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -34,7 +34,7 @@ export default function FullWalletModal(props: Props) {
   function prepareTokenList() {
     totalPaid.current = 0;
     totalValue.current = 0;
-    const filteredListWithTotals: any[] = [];
+    const filteredListWithTotals: Token[] = [];
     props.savedTokenList.forEach((token: Token) => {
       const tokenAmount = 0 + parseFloat(token.amount);
       if (!isNaN(tokenAmount) && tokenAmount !== 0) {
@@ -47,7 +47,7 @@ export default function FullWalletModal(props: Props) {
         filteredListWithTotals.push(updatedToken);
       }
     });
-    return filteredListWithTotals.sort((a, b) => b.total - a.total);
+    return filteredListWithTotals.sort((a, b) => parseFloat(b.total || "0") - parseFloat(a.total || "0"));
   }
 
   const tokenHeldList = prepareTokenList();
