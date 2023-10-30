@@ -1,6 +1,6 @@
 const dailyChangeFormat = (number: number) => {
   if (number === null) {
-    return 0;
+    return "0";
   }
   return number.toFixed(1) + "%";
 };
